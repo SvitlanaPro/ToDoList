@@ -1,5 +1,6 @@
 export const LS_KEYS = {
   tasks: 'tasks',
+  theme: 'theme',
 };
 
 export function saveState(key, value) {
