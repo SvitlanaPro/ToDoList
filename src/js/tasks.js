@@ -2,7 +2,7 @@ import { nanoid } from 'nanoid';
 import { renderTasks } from './render-tasks';
 import { getState, saveState, LS_KEYS } from './local-storage-api';
 
-const tasks = getState(LS_KEYS.tasks) || [];
+let tasks = getState(LS_KEYS.tasks) || [];
 
 export function addTask(event) {
   event.preventDefault();
@@ -23,4 +23,16 @@ export function addTask(event) {
 
 export function initTasks() {
   renderTasks(tasks);
+}
+export function deleteTask(event) {
+  // if (event.target.nodeName !== 'BUTTON') {
+  //   return
+  // }
+  if (!event.target.classList.contains('task-list-item-btn')) {
+    return;
+  }
+  const id = event.target.closest('li').id;
+  tasks = tasks.filter(task => task.id !== id);
+  renderTasks(tasks);
+  saveState(LS_KEYS.tasks, tasks);
 }
